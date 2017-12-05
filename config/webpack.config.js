@@ -40,15 +40,13 @@ let configPlugins = [
   // @see https://github.com/webpack/webpack/tree/master/examples/multiple-entry-points-commons-chunk-css-bundle
   new webpack.optimize.CommonsChunkPlugin({
     name: 'common',
-    filename: 'common/commons.js'
+    filename: 'common/commons.js?[chunkhash:8]'
   })
 ]
 // html
 entryHtml.forEach(v => {
   configPlugins.push(new HtmlWebpackPlugin(v))
 })
-
-console.log(entryJs)
 
 // 开发环境不压缩 js
 
@@ -181,13 +179,13 @@ function getEntryHtml(globPath) {
           minifyCSS: true,
           minifyJS: true
         }
-
     entries.push({
       filename: entry
         .split('/')
         .splice(2)
         .join('/'),
       template: entry,
+      chunks: ['common', pathname.split('/').splice(2)[0]], //公用chunks及enrtyjs同名的chunk
       minify: minifyConfig
     })
   })
