@@ -30,7 +30,7 @@ let configPlugins = [
   new HappyPack({
     id: 'styles',
     threadPool: HappyThreadPool,
-    loaders: ['style-loader', 'css-loader', 'less-loader', 'postcss-loader']
+    loaders: ['style-loader', 'css-loader', 'less-loader', 'postcss-loader', 'px2rem-loader']
   }),
   new ExtractTextPlugin({
     //[name]在getEntryHtml中配置
@@ -82,6 +82,12 @@ const config = {
               loader: 'css-loader?id=styles',
               options: {
                 minimize: !IsDev
+              }
+            },
+            {
+              loader: 'px2rem-loader?id=styles',
+              options: {
+                remUnit: 75
               }
             },
             {
