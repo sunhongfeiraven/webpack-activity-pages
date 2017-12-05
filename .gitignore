@@ -4,5 +4,6 @@
 ./npm-debug.log
 .DS_Store
 
-./vscode
-./idea
+.vscode
+.idea
+.vscode/launch.json
