@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "rule-empty-line-before": ["always", {
+      "ignore": ["inside-block"],
+      "except": ["first-nested", "inside-block-and-after-rule"]
+    }],
+    "max-nesting-depth": 4,
+    "no-empty-source": null,
+    "selector-class-pattern": ["^[a-z]+([a-z0-9]?|[a-z0-9\\-]*[a-z0-9])$", {
+      "message": "Please name CSS classes like this: 'this-is-class-name'",
+      "severity": "warning"
+    }],
+    "unit-no-unknown": [true, {
+      "ignoreUnits": ["rpx", "dpx"]
+    }]
+  }
+}

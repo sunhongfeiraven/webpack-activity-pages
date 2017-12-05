@@ -1,25 +1,26 @@
 const path = require('path')
 const webpack = require('webpack')
-const ROOT = process.cwd() //根目录
+const ROOT = process.cwd() // 根目录
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 const PostcssConfigPath = './config/postcss.config.js'
 const Glob = require('glob')
 const HappyPack = require('happypack')
 const ENV = process.env.NODE_ENV
-const IsDev = ENV === 'dev' ? true : false
+const IsDev = ENV === 'dev'
 const HappyThreadPool = HappyPack.ThreadPool({ size: IsDev ? 4 : 10 })
 
 let entryHtml = getEntryHtml('./src/**/index.html')
 let entryJs = getEntry('./src/**/main.js')
 let configPlugins = [
   new CleanWebpackPlugin(
-    ['dist'], //匹配删除的文件
+    ['dist'], // 匹配删除的文件
     {
-      root: ROOT, //根目录
-      verbose: true, //开启在控制台输出信息
-      dry: false //启用删除文件
+      root: ROOT, // 根目录
+      verbose: true, // 开启在控制台输出信息
+      dry: false // 启用删除文件
     }
   ),
   new HappyPack({
@@ -33,7 +34,7 @@ let configPlugins = [
     loaders: ['style-loader', 'css-loader', 'less-loader', 'postcss-loader', 'px2rem-loader']
   }),
   new ExtractTextPlugin({
-    //[name]在getEntryHtml中配置
+    // [name]在getEntryHtml中配置
     filename: '[name]/css/style.css?[chunkhash:8]',
     allChunks: true
   }),
@@ -41,6 +42,9 @@ let configPlugins = [
   new webpack.optimize.CommonsChunkPlugin({
     name: 'common',
     filename: 'common/commons.js?[chunkhash:8]'
+  }),
+  new StyleLintPlugin({
+    files: ['src/**/*.less','src/**/*.css']
   })
 ]
 // html
@@ -66,12 +70,17 @@ const config = {
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader?id=js',
-          options: {
-            presets: ['env']
+        use: [
+          {
+            loader: 'babel-loader?id=js',
+            options: {
+              presets: ['env']
+            }
+          },
+          {
+            loader: 'eslint-loader?id=js'
           }
-        }
+        ]
       },
       {
         test: /\.(less|css)$/,
@@ -180,18 +189,18 @@ function getEntryHtml(globPath) {
     let minifyConfig = IsDev
       ? ''
       : {
-          removeComments: true,
-          collapseWhitespace: true,
-          minifyCSS: true,
-          minifyJS: true
-        }
+        removeComments: true,
+        collapseWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true
+      }
     entries.push({
       filename: entry
         .split('/')
         .splice(2)
         .join('/'),
       template: entry,
-      chunks: ['common', pathname.split('/').splice(2)[0]], //公用chunks及enrtyjs同名的chunk
+      chunks: ['common', pathname.split('/').splice(2)[0]], // 公用chunks及enrtyjs同名的chunk
       minify: minifyConfig
     })
   })
