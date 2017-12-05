@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!--<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">-->
+    <meta content="telephone=no" name="format-detection"/>
+    <!-- UC默认竖屏` UC强制全屏 -->
+    <meta name="full-screen" content="yes"/>
+    <meta name="browsermode" content="application"/>
+    <!-- QQ强制竖屏` QQ强制全屏 -->
+    <meta name="x5-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="x5-page-mode" content="app"/>
+    <link rel="shortcut icon" href=/static/favicon.png>
+    <title>产品券兑换</title>
+    <script src='../static/libs/flexible.js'></script>
+    <link rel="stylesheet" href="./dist/css/style.css">
+    <style>a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}</style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="form-box">
+                <div class="info-container">
+                    <div class="info-list code-box">
+                        <div class="item"><input type="text" placeholder="* 礼品券编号" v-model="couponNo"></div>
+                        <div class="item"><input type="text" placeholder="* 兑换码" v-model="couponCode"></div>
+                    </div>
+                    <div class="info-list">
+                        <div class="item">
+                            <input type="text" placeholder="* 收件人姓名" v-model="name" >
+                        </div>
+                        <div class="item" >
+                            <input type="text" placeholder="* 联系方式" v-model="mobile" >
+                        </div>
+                        <div class="item">
+                            <input type="text" placeholder="* 收件地址" v-model="address">
+                        </div>
+                        <div class="item">
+                            <input type="text" placeholder="备注" v-model="memo">
+                        </div>
+                        <p class="goodtips">温馨提示：请务必确保手机畅通和收货地址准确，感谢支持！
+                          <br>
+                          所有产品券兑换截止时间到2017.12.31。
+                        </p>
+                    </div>
+
+                </div>
+                <div class="handle-box">
+                    <button class="submit-btn" @click="submitFromData">确认兑换</button>
+                    <modal style="display: none" :style="{ display: showModal && 'table' }" v-if="showModal" @close="showModal = false">
+                        <h3 slot="header">{{ this.tips || this.netError}}</h3>
+                    </modal>
+                </div>
+            </div>
+        </div>
+        <div class="mask" style="display: none" :style="{ display: showAlert && 'flex' }" v-if="showAlert">
+            <!--兑换成功-->
+            <div class="show-card" v-if="showAlert && showStatus==0">
+                <h3 class="alert-title"><img src="./images/s.png">兑换成功</h3>
+                <div class="tips">
+                    <p>您已成功兑换{{ this.goodsName }},</p>
+                    <p>感谢您的支持,</p>
+                    <p>祝您生活愉快！</p>
+                </div>
+                <p class="alert-ok"><a class="submit-btn suc" @click="closeDialog(showStatus)" :resetType="showStatus">确认</a></p>
+            </div>
+            <!--兑换失败-->
+            <div class="show-card fail" v-if="showAlert && showStatus!==0">
+                <h3 class="alert-title"><img src="./images/c.png">兑换失败</h3>
+                <div class="tips">
+                    <p>很抱歉,</p>
+                    <p>您的兑换码不正确,</p>
+                    <p>兑换失败,</p>
+                    <p>请重新输入！</p>
+                </div>
+                <p class="alert-ok"><a class="submit-btn f" @click="closeDialog(showStatus)" :resetType="showStatus">确认</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/libs/vue.min.js"></script>
+    <script src="../static/libs/axios.min.js"></script>
+    <script src="./dist/js/main.bundle.js"></script>
+    <script type="text/x-template" id="modal-template">
+        <transition name="modal">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-container">
+                        <div class="modal-header">
+                            <slot name="header">
+                                默认信息
+                            </slot>
+                        </div>
+                        <div class="modal-footer">
+                            <slot name="footer">
+                                <button class="modal-default-button submit-btn" @click="$emit('close')">
+                                   确定
+                                </button>
+                            </slot>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </script>
+</body>
+</html>
