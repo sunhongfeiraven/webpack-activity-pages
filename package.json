@@ -4,20 +4,11 @@
   "description": "webpack test for activity pages",
   "main": "index.js",
   "scripts": {
-    "build": "better-npm-run build",
-    "dev": "better-npm-run dev",
-    "start": "better-npm-run start"
-  },
-  "betterScripts": {
-    "dev": {
-      "command": "cross-env NODE_ENV=dev webpack --config config/webpack.config"
-    },
-    "build": {
-      "command": "cross-env NODE_ENV=production webpack --config config/webpack.config"
-    },
-    "start": {
-      "command": "webpack-dev-server --config config/webpack.config"
-    }
+    "start": "webpack-dev-server --progress --color --host 0.0.0.0 --config config/webpack.config",
+    "dev": "npm run start",
+    "build": "cross-env BUILD_ENV=prod webpack --config config/webpack.config",
+    "build:test": "cross-env BUILD_ENV=test webpack --config config/webpack.config",
+    "build:pre": "cross-env BUILD_ENV=pre webpack --config config/webpack.config"
   },
   "author": "sunhf",
   "license": "MIT",

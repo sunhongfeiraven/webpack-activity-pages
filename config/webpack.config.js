@@ -8,13 +8,16 @@ const StyleLintPlugin = require('stylelint-webpack-plugin')
 const PostcssConfigPath = './config/postcss.config.js'
 const Glob = require('glob')
 const HappyPack = require('happypack')
-const ENV = process.env.NODE_ENV
+const ENV = process.env.BUILD_ENV
 const IsDev = ENV === 'dev'
 const HappyThreadPool = HappyPack.ThreadPool({ size: IsDev ? 4 : 10 })
+
+console.log(ENV)
 
 let entryHtml = getEntryHtml('./src/**/index.html')
 let entryJs = getEntry('./src/**/main.js')
 let configPlugins = [
+  // 保证生产冗余 不删除dist内文件
   new CleanWebpackPlugin(
     ['dist'], // 匹配删除的文件
     {
@@ -35,16 +38,17 @@ let configPlugins = [
   }),
   new ExtractTextPlugin({
     // [name]在getEntryHtml中配置
-    filename: '[name]/css/style.css?[chunkhash:8]',
+    filename: '[name]/css/style-[hash:8].css',
     allChunks: true
   }),
   // @see https://github.com/webpack/webpack/tree/master/examples/multiple-entry-points-commons-chunk-css-bundle
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'common',
-    filename: 'common/commons.js?[chunkhash:8]'
-  }),
+  // 不提取commonChunk
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   name: 'common',
+  //   filename: 'common/commons.js?[chunkhash:8]'
+  // }),
   new StyleLintPlugin({
-    files: ['src/**/*.less','src/**/*.css']
+    files: ['src/**/*.less', 'src/**/*.css']
   })
 ]
 // html
@@ -60,10 +64,10 @@ const config = {
   // @see https://github.com/webpack-contrib/extract-text-webpack-plugin/blob/master/example/webpack.config.js
   // [name]在getEntryHtml中配置
   output: {
-    filename: '[name]/js/main.js?[chunkhash:8]',
-    // chunkFilename: '[name]/js/main.js?[chunkhash:8]',
+    filename: '[name]/js/main-[hash:8].js',
+    chunkFilename: '[name]/js/chunk.js?[chunkhash:8]',
     path: path.resolve(ROOT, 'dist'),
-    publicPath: '/'
+    publicPath: './'
   },
   module: {
     rules: [
@@ -121,7 +125,7 @@ const config = {
             options: {
               limit: 100,
               publicPath: '',
-              name: '/img/[name].[ext]?[hash:8]'
+              name: '/img/[name]-[hash:8].[ext]'
             }
           }
         ]
@@ -134,7 +138,7 @@ const config = {
             options: {
               limit: 100,
               publicPath: '',
-              name: '/font/[name].[ext]?[hash:8]'
+              name: '/font/[name]-[hash:8].[ext]'
             }
           }
         ]
@@ -157,8 +161,14 @@ const config = {
   devServer: {
     contentBase: [path.join(ROOT, 'src/')],
     hot: false,
-    host: '127.0.0.1',
-    port: 5000
+    // host: '127.0.0.1', // host 配置在package.json内 为了局域网可访问
+    port: 5000,
+    open: true,
+    stats: 'errors-only',
+    overlay: {
+      warnings: true,
+      errors: true
+    }
   }
 }
 
@@ -190,9 +200,9 @@ function getEntryHtml(globPath) {
       ? ''
       : {
         removeComments: true,
-        collapseWhitespace: true,
-        minifyCSS: true,
-        minifyJS: true
+        // collapseWhitespace: true
+        // minifyCSS: true, // 不压缩
+        // minifyJS: true // 不压缩
       }
     entries.push({
       filename: entry
@@ -200,7 +210,7 @@ function getEntryHtml(globPath) {
         .splice(2)
         .join('/'),
       template: entry,
-      chunks: ['common', pathname.split('/').splice(2)[0]], // 公用chunks及enrtyjs同名的chunk
+      // chunks: ['common', pathname.split('/').splice(2)[0]], // 公用chunks及enrtyjs同名的chunk 不提取chunk
       minify: minifyConfig
     })
   })
