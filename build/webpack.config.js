@@ -5,17 +5,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
-const PostcssConfigPath = './config/postcss.config.js'
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const PostcssConfigPath = ROOT +'/postcss.config.js'
 const Glob = require('glob')
 const HappyPack = require('happypack')
 const ENV = process.env.BUILD_ENV
-const IsDev = ENV === 'dev'
+const IsDev = ENV !== 'prod'
 const HappyThreadPool = HappyPack.ThreadPool({ size: IsDev ? 4 : 10 })
 
-console.log(ENV)
 
 let entryHtml = getEntryHtml('./src/**/index.html')
-let entryJs = getEntry('./src/**/main.js')
+let entryJs = getEntry('./src/**/js/main.js')
 let configPlugins = [
   // 保证生产冗余 不删除dist内文件
   new CleanWebpackPlugin(
@@ -44,12 +44,19 @@ let configPlugins = [
   // @see https://github.com/webpack/webpack/tree/master/examples/multiple-entry-points-commons-chunk-css-bundle
   // 不提取commonChunk
   // new webpack.optimize.CommonsChunkPlugin({
-  //   name: 'common',
-  //   filename: 'common/commons.js?[chunkhash:8]'
+  // name: 'common',
+  // filename: 'common/commons.js?[chunkhash:8]'
   // }),
   new StyleLintPlugin({
     files: ['src/**/*.less', 'src/**/*.css']
-  })
+  }),
+  new CopyWebpackPlugin([
+    {
+      from:'src/[name]/images',
+      to:'dist/[name]/images'
+    }
+  ])
+
 ]
 // html
 entryHtml.forEach(v => {
@@ -67,7 +74,7 @@ const config = {
     filename: '[name]/js/main-[hash:8].js',
     chunkFilename: '[name]/js/chunk.js?[chunkhash:8]',
     path: path.resolve(ROOT, 'dist'),
-    publicPath: './'
+    publicPath: '/dist/'
   },
   module: {
     rules: [
@@ -117,32 +124,32 @@ const config = {
           ]
         })
       },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 100,
-              publicPath: '',
-              name: '/img/[name]-[hash:8].[ext]'
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(eot|svg|ttf|woff)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 100,
-              publicPath: '',
-              name: '/font/[name]-[hash:8].[ext]'
-            }
-          }
-        ]
-      },
+      // {
+      //   test: /\.(png|jpg|gif)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 100,
+      //         publicPath: '',
+      //         name: '/images/[name]-[hash:8].[ext]'
+      //       }
+      //     }
+      //   ]
+      // },
+      // {
+      //   test: /\.(eot|svg|ttf|woff)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 100,
+      //         publicPath: '',
+      //         name: '/font/[name]-[hash:8].[ext]'
+      //       }
+      //     }
+      //   ]
+      // },
       // @see https://github.com/wzsxyz/html-withimg-loader
       {
         test: /\.(htm|html)$/i,
@@ -182,10 +189,13 @@ function getEntry(globPath) {
   Glob.sync(globPath).forEach(entry => {
     let basename = path.basename(entry, path.extname(entry))
     let pathname = path.dirname(entry)
-    entries[pathname.split('/').splice(2)] = pathname + '/' + basename
+
+    entries[pathname.split('/')[2]] = pathname + '/' + basename
   })
   return entries
 }
+
+
 /**
  * 根据目录获取 html 入口
  * @param {*} golbPath
@@ -199,7 +209,7 @@ function getEntryHtml(globPath) {
     let minifyConfig = IsDev
       ? ''
       : {
-        removeComments: true,
+        removeComments: true
         // collapseWhitespace: true
         // minifyCSS: true, // 不压缩
         // minifyJS: true // 不压缩
@@ -210,10 +220,11 @@ function getEntryHtml(globPath) {
         .splice(2)
         .join('/'),
       template: entry,
-      // chunks: ['common', pathname.split('/').splice(2)[0]], // 公用chunks及enrtyjs同名的chunk 不提取chunk
+      chunks: [pathname.split('/').splice(2)[0]], // enrtyjs同名的chunk ！必填不然会注入全部chrunk
       minify: minifyConfig
     })
   })
+  console.log(entries)
   return entries
 }
 

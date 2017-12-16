@@ -4,7 +4,7 @@
   "description": "webpack test for activity pages",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --color --host 0.0.0.0 --config config/webpack.config",
+    "start": "webpack-dev-server --progress --color --config build/webpack.dev.conf",
     "dev": "npm run start",
     "build": "cross-env BUILD_ENV=prod webpack --config config/webpack.config",
     "build:test": "cross-env BUILD_ENV=test webpack --config config/webpack.config",
@@ -18,7 +18,9 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "better-npm-run": "^0.1.0",
+    "chalk": "^2.3.0",
     "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.3.0",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.12.1",
@@ -32,12 +34,14 @@
     "eslint-plugin-standard": "^3.0.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
+    "friendly-errors-webpack-plugin": "^1.6.1",
     "glob": "^7.1.2",
     "happypack": "^4.0.0",
     "html-webpack-plugin": "^2.30.1",
     "html-withimg-loader": "^0.1.16",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
+    "portfinder": "^1.0.13",
     "postcss-loader": "^2.0.9",
     "px2rem-loader": "^0.1.7",
     "style-loader": "^0.19.0",
@@ -45,7 +49,8 @@
     "stylelint-webpack-plugin": "^0.9.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.5"
+    "webpack-dev-server": "^2.9.5",
+    "webpack-merge": "^4.1.1"
   },
   "dependencies": {
     "axios": "^0.17.1"
