@@ -8,24 +8,28 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-// const StyleLintPlugin = require('stylelint-webpack-plugin')
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 const portfinder = require('portfinder')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
+function getSingleEntry(fileName){
+  let entry = {}
+  entry[fileName] = `./src/${fileName}/main.js`
+  return entry
+}
+
+console.log(path.resolve(__dirname, `..`))
+
 const devWebpackConfig = merge(baseWebpackConfig, {
-  context: path.resolve(__dirname, '../'),
-  entry: {
-    app: './src/main.js'
-  },
+  context: path.resolve(__dirname, `..`),
+  entry: {app:'./src/main.js'},
   output: {
+    publicPath:'./',
     path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    filename: `main.js`,
   },
   devServer: {
     hot: true,
@@ -39,15 +43,24 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
-    // new ExtractTextPlugin({
-    //   // [name]在getEntryHtml中配置
-    //   filename: '[name]/css/style-[hash:8].css',
-    //   allChunks: true
-    // }),
+    new CleanWebpackPlugin(
+      ['dist'], // 匹配删除的文件
+      {
+        root: path.resolve(__dirname, `../`), // 根目录
+        verbose: true, // 开启在控制台输出信息
+        dry: false // 启用删除文件
+      }
+    ),
+    new ExtractTextPlugin({
+      // [name]在getEntryHtml中配置
+      filename: 'css/style-[hash:8].css',
+      allChunks: true
+    }),
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.resolve(__dirname, '../src/index.html'),
-      chunks: ['yuebin'] // enrtyjs同名的chunk ！必填不然会注入全部chrunk
+      filename: `index.html`,
+      template: path.resolve(__dirname, `../src/index.html`),
+      // chunks: ['yuebin'] // enrtyjs同名的chunk ！必填不然会注入全部chrunk
     })
   ]
 })

@@ -5,7 +5,7 @@
 const path = require('path')
 
 module.exports = {
-  fileName:'yuebin',
+  fileName:'projectA',
   dev: {
     // Paths
     assetsSubDirectory: 'static',
