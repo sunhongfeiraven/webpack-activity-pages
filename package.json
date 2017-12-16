@@ -4,7 +4,7 @@
   "description": "webpack test for activity pages",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --color --config build/webpack.dev.conf",
+    "start": "webpack-dev-server --color --config build/webpack.dev.conf",
     "dev": "npm run start",
     "build": "cross-env BUILD_ENV=prod webpack --config build/webpack.dev.conf",
     "build:test": "cross-env BUILD_ENV=test webpack --config config/webpack.config",

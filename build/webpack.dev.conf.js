@@ -27,7 +27,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   context: path.resolve(__dirname, `..`),
   entry: {app:'./src/main.js'},
   output: {
-    publicPath:'./',
+    // publicPath:'./',
     path: config.build.assetsRoot,
     filename: `main.js`,
   },
@@ -36,6 +36,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     host: process.env.HOST || config.dev.host,
     port: process.env.PORT || config.dev.port,
     open: true,
+    quiet: true,
     stats: 'errors-only',
     overlay: {
       warnings: true,
