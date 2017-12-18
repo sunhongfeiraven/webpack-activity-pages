@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --color --config build/webpack.dev.conf",
     "dev": "npm run start",
-    "build": "cross-env BUILD_ENV=prod webpack --config build/webpack.dev.conf",
+    "build": "cross-env BUILD_ENV=prod webpack --config build/webpack.prod.conf",
     "build:test": "cross-env BUILD_ENV=test webpack --config config/webpack.config",
     "build:pre": "cross-env BUILD_ENV=pre webpack --config config/webpack.config"
   },
@@ -36,6 +36,7 @@
     "file-loader": "^1.1.5",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "glob": "^7.1.2",
+    "gulp": "^3.9.1",
     "happypack": "^4.0.0",
     "html-webpack-plugin": "^2.30.1",
     "html-withimg-loader": "^0.1.16",
@@ -50,7 +51,8 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.5",
-    "webpack-merge": "^4.1.1"
+    "webpack-merge": "^4.1.1",
+    "webpack-stream": "^4.0.0"
   },
   "dependencies": {
     "axios": "^0.17.1"

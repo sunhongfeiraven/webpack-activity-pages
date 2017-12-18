@@ -1,0 +1,12 @@
+body {
+  background: url('./images/bigimg_01.jpg') no-repeat;
+}
+
+p {
+  background: green;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
