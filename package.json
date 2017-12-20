@@ -42,6 +42,7 @@
     "ip": "^1.1.5",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
+    "os": "^0.1.1",
     "portfinder": "^1.0.13",
     "postcss-loader": "^2.0.9",
     "px2rem-loader": "^0.1.7",

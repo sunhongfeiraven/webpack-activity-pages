@@ -2,8 +2,11 @@
 const path = require('path')
 const webpack = require('webpack')
 const config = require('../config')
+const HappyPack = require('happypack')
+const os = require('os')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const PostcssConfigPath = path.resolve(__dirname, '../postcss.config.js')
+const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length}); // 启动线程池
 
 module.exports = {
   context: path.resolve(__dirname, `..`),
@@ -18,13 +21,13 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: 'babel-loader?id=js',
             options: {
               presets: ['env']
             }
           },
           {
-            loader: 'eslint-loader'
+            loader: 'eslint-loader?id=js'
           }
         ]
       },
@@ -93,6 +96,12 @@ module.exports = {
       // [name]在getEntryHtml中配置
       filename: 'css/style[hash:8].css',
       allChunks: true
+    }),
+    new HappyPack({
+      id: 'js',
+      cache: true,
+      threadPool: HappyThreadPool,
+      loaders: ['babel-loader']
     })
   ],
   resolve: {
