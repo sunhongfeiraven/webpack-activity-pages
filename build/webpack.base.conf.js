@@ -11,6 +11,7 @@ const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }) // å¯å
 module.exports = {
   context: path.resolve(__dirname, `..`),
   output: {
+    publicPath:'./',
     path: config.build.assetsRoot,
     filename: `main.bundle.[hash:8]].js`
   },

@@ -1,19 +1,19 @@
 'use strict'
 
 const path = require('path')
-const fileName = require('./file')
+const file = require('./file')
 
 module.exports = {
-  fileName,
+  fileName: file.fileName,
+  additionalFiles: file.additionalFiles,
+  exceptFiles: file.exceptFiles,
   dev: {
-    assetsPublicPath: '/',
-    proxyTable: {},
     host: '0.0.0.0',
     port: 8080,
     autoOpenBrowser: false,
-    errorOverlay: true,
+    errorOverlay: true
   },
   build: {
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../dist')
   }
 }

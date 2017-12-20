@@ -1,26 +1,29 @@
 const path = require('path')
 const gulp = require('gulp')
+const gulpCopy = require('gulp-copy')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const webpackConfig = require('./build/webpack.prod.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const chalk = require('chalk')
 const merge = require('webpack-merge')
 const clean = require('gulp-clean')
+const config = require('./config')
 const utils = require('./build/utils')
 
 // TODO 循环打包 √
 // TODO 其他列表根据config打包
 // TODO 添加BUILD_ENV环境 √
-// TODO 输出美化
+// TODO 输出美化 √
 // TODO 添加CDN
 // TODO 测试font
+console.log(chalk.blue('BUILD_ENV ==> ') + chalk.yellow(process.env.BUILD_ENV))
 
 // 遍历src文件获取入口
 const entrys = utils.getEntry('./src/**/main.js')
-console.log(chalk.blue('BUILD_ENV ==> ') + chalk.yellow(process.env.BUILD_ENV))
+const additionalFiles = config.additionalFiles
 
+// webpack打包文件
 entrys.forEach(entry => {
   let gulpWebpackConf = merge(webpackConfig, {
     entry: `./src/${entry}/main.js`,
@@ -31,8 +34,7 @@ entrys.forEach(entry => {
       new HtmlWebpackPlugin({
         filename: `index.html`,
         template: path.resolve(__dirname, `./src/${entry}/index.html`)
-      }),
-      new FriendlyErrorsPlugin()
+      })
     ]
   })
   gulp.task(entry, () => {
@@ -43,9 +45,16 @@ entrys.forEach(entry => {
   })
 })
 
+// 不需打包的文件
+additionalFiles.forEach(addEntry => {
+  gulp.task(addEntry, () => {
+    return gulp.src(`src/${addEntry}/*`).pipe(gulp.dest(`dist/${addEntry}`))
+  })
+})
+
+// dist清理
 gulp.task('clean', () => {
   return gulp.src('dist/', { force: true }).pipe(clean())
 })
 
-// TODO zip
-gulp.task('default', ['clean', ...entrys], () => {})
+gulp.task('default', [...additionalFiles, ...entrys], () => {})
