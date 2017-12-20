@@ -98,11 +98,15 @@ module.exports = {
       allChunks: true
     }),
     new HappyPack({
-      id: 'js',
-      cache: true,
+      id: 'js', // @see https://github.com/amireh/happypack
       threadPool: HappyThreadPool,
       loaders: ['babel-loader']
-    })
+    }),
+    new HappyPack({
+      id: 'styles',
+      threadPool: HappyThreadPool,
+      loaders: ['style-loader', 'css-loader', 'less-loader', 'postcss-loader', 'px2rem-loader']
+    }),
   ],
   resolve: {
     alias: {
