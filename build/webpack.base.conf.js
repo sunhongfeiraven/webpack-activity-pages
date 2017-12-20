@@ -6,7 +6,7 @@ const HappyPack = require('happypack')
 const os = require('os')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const PostcssConfigPath = path.resolve(__dirname, '../postcss.config.js')
-const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length}); // 启动线程池
+const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }); // 启动线程池
 
 module.exports = {
   context: path.resolve(__dirname, `..`),
@@ -38,27 +38,23 @@ module.exports = {
       {
         test: /\.(less|css)$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: 'style-loader?id=styles',
           publicPath: '../',
           use: [
             {
-              loader: 'css-loader'
+              loader: 'css-loader?id=styles'
             },
             {
-              loader: 'px2rem-loader',
+              loader: 'px2rem-loader?id=styles',
+              options: { remUnit: 75 }
+            },
+            {
+              loader: 'less-loader?id=styles'
+            },
+            {
+              loader: 'postcss-loader?id=styles',
               options: {
-                remUnit: 75
-              }
-            },
-            {
-              loader: 'less-loader'
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                config: {
-                  path: PostcssConfigPath
-                }
+                config: { path: PostcssConfigPath }
               }
             }
           ]

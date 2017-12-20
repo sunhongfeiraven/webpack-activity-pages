@@ -60,7 +60,7 @@ module.exports = new Promise((resolve, reject) => {
               ``,
               `Local:            http://${config.dev.host}:${port}`,
               `On your Network : http://${ip.address()}:${port}`
-              ]
+            ]
           }
         })
       )
