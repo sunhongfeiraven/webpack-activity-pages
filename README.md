@@ -45,7 +45,7 @@ config.index 中由 externals 配置
 <script src="cdn address"></script>
 ```
 
-3.在main.js中import( 为了防止全局变量污染 )
+3.在main.js中import( 为了防止全局变量污染 )
 
 ```js
 import axios from 'axios'
