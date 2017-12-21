@@ -13,7 +13,7 @@
 
 ## Alias 
       
-Lib: src/lib
+Utils: src/utils
     
 
 ## 开发

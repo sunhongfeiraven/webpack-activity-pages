@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --color --config build/webpack.dev.conf",
     "dev": "npm run start",
+    "test": "webpack --config build/webpack.dev.conf",
     "build": "cross-env BUILD_ENV=PROD gulp",
     "build:test": "cross-env BUILD_ENV=TEST gulp",
     "build:pre": "cross-env BUILD_ENV=PRE gulp"

@@ -11,7 +11,7 @@ const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }) // 启�
 module.exports = {
   context: path.resolve(__dirname, `..`),
   output: {
-    // publicPath:'./', // ?加了gg
+    publicPath:'./', // ?加了gg
     path: config.build.assetsRoot,
     filename: `main.bundle.[hash:8]].js`
   },
@@ -110,7 +110,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      Lib: path.resolve(__dirname, '../src/lib')
+      Lib: path.resolve(__dirname, '../src/lib'),
+      Utils: path.resolve(__dirname, '../src/utils')
     }
   }
 }
