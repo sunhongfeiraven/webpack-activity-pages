@@ -1,8 +1,8 @@
-## 活动页-webpack-苏州
+# webpack-mutiple-output
 
 ## 目录结构
 
-```
+```js
 src
 ├── lib                      # 全局通用的某些第三方库 可用<script>引入 详情见下文
 ├── utils                    # 工具库 在项目main.js中用import引入
@@ -11,7 +11,7 @@ src
 
 ## 项目结构
 
-```
+```js
 .
 ├── css                      # css 文件
 ├── images                   # 图像目录
@@ -26,7 +26,7 @@ config.index 中由 externals 配置
 
 使用方法:
 
-1. 在config.index中配置externals
+1.在config.index中配置externals
 
 ```js
   externals: {
@@ -35,7 +35,7 @@ config.index 中由 externals 配置
   },
 ```
 
-2. 在项目index.html中添加
+2.在项目index.html中添加
 
 ```html
 <script src="../lib/axios.min.js"></script>
@@ -45,28 +45,25 @@ config.index 中由 externals 配置
 <script src="cdn address"></script>
 ```
 
-3. 在main.js中import( 为了防止全局变量污染 )
+3.在main.js中import( 为了防止全局变量污染 )
 
 ```js
-import axios from 'axios' 
+import axios from 'axios'
 ```
-
 
 当前支持列表:
 
 - axios
 
+## Alias
 
-## Alias 
-      
 @: src/utils
-
 
 ## 开发
 
 修改config里的fileName
 
-```shell 
+```shell
 yarn dev || yarn start    //开发单个页面
 ```
 
