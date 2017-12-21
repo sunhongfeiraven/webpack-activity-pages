@@ -6,7 +6,6 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 const ip = require('ip')
@@ -21,10 +20,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   output: {
     publicPath: '', // dev不能加好像
     path: config.build.assetsRoot,
-    filename: 'app/main.bundle[hash:8].js'
+    filename: 'main.bundle[hash:8].js'
   },
   devServer: {
-    contentBase: path.join(__dirname, '../dist/app'),
+    contentBase: path.join(__dirname, '../src'), // !devserver路劲根据src的来
     watchContentBase: true, // css html 热更新
     hot: true,
     host: process.env.HOST || config.dev.host,
@@ -40,19 +39,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'app/index.html',
+      filename: 'index.html',
       template: path.resolve(__dirname, `../src/${config.fileName}/index.html`)
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, `../src/lib`),
-        to: path.resolve(__dirname, '../dist/lib')
-      }
-    ])
+    })
   ]
 })
 
-// TODO add ip √
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port
   portfinder.getPort((err, port) => {

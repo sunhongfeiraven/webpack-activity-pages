@@ -11,12 +11,6 @@ const clean = require('gulp-clean')
 const config = require('./config')
 const utils = require('./build/utils')
 
-// TODO 循环打包 √
-// TODO 其他列表根据config打包
-// TODO 添加BUILD_ENV环境 √
-// TODO 输出美化 √
-// TODO 添加CDN
-// TODO 测试font
 console.log(chalk.blue('BUILD_ENV ==> ') + chalk.yellow(process.env.BUILD_ENV))
 
 // 遍历src文件获取入口

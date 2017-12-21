@@ -1,12 +1,17 @@
 'use strict'
 
 const path = require('path')
-const file = require('./file')
 
 module.exports = {
-  fileName: file.fileName,
-  additionalFiles: file.additionalFiles,
-  exceptFiles: file.exceptFiles,
+  fileName: 'lvyou',
+  // 额外没有main.js的文件打包
+  additionalFiles: ['privacy', 'lib'],
+  // 不需要打包的项目 即不会出现在dist当中
+  exceptFiles: ['projectB'],
+  // 第三方包
+  externals: {
+    axios: 'axios'
+  },
   dev: {
     host: '0.0.0.0',
     port: 8080,

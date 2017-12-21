@@ -11,7 +11,7 @@ const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }) // 启�
 module.exports = {
   context: path.resolve(__dirname, `..`),
   output: {
-    publicPath:'./', // ?加了gg
+    publicPath: './', // ?加了gg
     path: config.build.assetsRoot,
     filename: `main.bundle.[hash:8]].js`
   },
@@ -88,9 +88,7 @@ module.exports = {
       }
     ]
   },
-  externals: {
-    axios: 'axios'
-  },
+  externals: config.externals,
   plugins: [
     new ExtractTextPlugin({
       // [name]在getEntryHtml中配置
@@ -110,8 +108,7 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      Lib: path.resolve(__dirname, '../src/lib'),
-      Utils: path.resolve(__dirname, '../src/utils')
+      '@': path.resolve(__dirname, '../src/utils')
     }
   }
 }

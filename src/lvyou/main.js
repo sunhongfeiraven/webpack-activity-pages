@@ -2,11 +2,11 @@
 import './css/style.css'
 import 'swiper/dist/css/swiper.css'
 
-import 'Utils/flexible'
+import '@/flexible'
 import Swiper from 'swiper'
 import axios from 'axios'
-// 引入lib
-import browser from 'Utils/browser'
+// 引入utls
+import browser from '@/browser'
 
 new Swiper('.swiper-container', {
   slidesPerView: 'auto',
