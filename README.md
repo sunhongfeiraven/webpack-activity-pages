@@ -40,7 +40,7 @@ config.index 中由 externals 配置
 ```html
 <script src="../lib/axios.min.js"></script>
 
-// or
+// or
 
 <script src="cdn address"></script>
 ```
@@ -82,4 +82,4 @@ yarn build             //生产环境打包
 - ~~提取公共组件至lib~~
 - 测试font打包
 - 添加项目通用lib
-- 重构share等方法
+- 重构share等方法
