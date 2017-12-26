@@ -6,8 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --color --config build/webpack.dev.conf",
     "dev": "npm run start",
-    "test": "webpack --config build/webpack.dev.conf",
-    "build": "cross-env BUILD_ENV=PROD gulp",
+    "test": "webpack --config  build/webpack.dev.conf",
+    "build": "cross-env BUILD_ENV=PROD  gulp",
     "build:test": "cross-env BUILD_ENV=TEST gulp",
     "build:pre": "cross-env BUILD_ENV=PRE gulp"
   },
@@ -52,6 +52,9 @@
     "stylelint": "^8.3.1",
     "stylelint-webpack-plugin": "^0.9.0",
     "url-loader": "^0.6.2",
+    "vue-loader": "^13.6.1",
+    "vue-style-loader": "^3.0.3",
+    "vue-template-compiler": "^2.5.13",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.5",
     "webpack-merge": "^4.1.1",
@@ -60,6 +63,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "lib-flexible": "^0.3.2",
-    "swiper": "^4.0.7"
+    "swiper": "^4.0.7",
+    "vue": "^2.5.13"
   }
 }

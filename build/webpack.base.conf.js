@@ -2,11 +2,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const config = require('../config')
-const HappyPack = require('happypack')
-const os = require('os')
+const utils = require('./utils')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const PostcssConfigPath = path.resolve(__dirname, '../postcss.config.js')
-const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }) // 启动线程池
 
 module.exports = {
   context: path.resolve(__dirname, `..`),
@@ -22,13 +19,13 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         use: [
           {
-            loader: 'babel-loader?id=js',
+            loader: 'babel-loader',
             options: {
               presets: ['env']
             }
           },
           {
-            loader: 'eslint-loader?id=js'
+            loader: 'eslint-loader'
           }
         ]
       },
@@ -37,29 +34,19 @@ module.exports = {
         loader: 'html-withimg-loader?min=false'
       },
       {
-        test: /\.(less|css)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader?id=styles',
-          publicPath: '../',
-          use: [
-            {
-              loader: 'css-loader?id=styles'
-            },
-            {
-              loader: 'px2rem-loader?id=styles',
-              options: { remUnit: 75 }
-            },
-            {
-              loader: 'less-loader?id=styles'
-            },
-            {
-              loader: 'postcss-loader?id=styles',
-              options: {
-                config: { path: PostcssConfigPath }
-              }
-            }
-          ]
-        })
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: utils.cssLoaders({
+            extract: true
+          }),
+          transformToRequire: {
+            video: 'src',
+            source: 'src',
+            img: 'src',
+            image: 'xlink:href'
+          }
+        }
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -68,7 +55,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 100,
-              name: 'images/[name][hash:8].[ext]'
+              name: 'images/[name].[ext]'
             }
           }
         ]
@@ -81,11 +68,16 @@ module.exports = {
             options: {
               limit: 100,
               publicPath: '',
-              name: 'font/[name][hash:8].[ext]'
+              name: 'font/[name].[ext]'
             }
           }
         ]
-      }
+      },
+      ...utils.styleLoaders({
+        sourceMap: config.build.productionSourceMap,
+        extract: true,
+        usePostCSS: true
+      })
     ]
   },
   externals: config.externals,
@@ -95,18 +87,9 @@ module.exports = {
       filename: 'css/style[hash:8].css',
       allChunks: true
     }),
-    new HappyPack({
-      id: 'js', // @see https://github.com/amireh/happypack
-      threadPool: HappyThreadPool,
-      loaders: ['babel-loader']
-    }),
-    new HappyPack({
-      id: 'styles',
-      threadPool: HappyThreadPool,
-      loaders: ['style-loader', 'css-loader', 'less-loader', 'postcss-loader', 'px2rem-loader']
-    })
   ],
   resolve: {
+    extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': path.resolve(__dirname, '../src/utils')
     }
