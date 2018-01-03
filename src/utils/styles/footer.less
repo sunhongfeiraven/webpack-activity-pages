@@ -1,0 +1,57 @@
+footer {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  bottom: 0;
+  height: 120px;
+  background: #000;
+  display: none;
+  *zoom: 1;
+
+  &::before,
+  &::after {
+    display: table;
+    line-height: 0;
+    content: '';
+  }
+
+  &::after {
+    clear: both;
+  }
+
+  .download-logo,
+  .txt-cont {
+    float: left;
+  }
+
+  .txt-cont {
+    color: #fff;
+
+    h3 {
+      font-size: 32px;
+      margin-top: 20px;
+      letter-spacing: 8px;
+    }
+
+    p {
+      font-size: 20px;
+      margin-top: 8px;
+    }
+  }
+
+  .download-logo {
+    height: 90px;
+    margin: 15px 20px 15px 30px;
+  }
+
+  .btn-load {
+    float: right;
+    background: #fd5729;
+    color: #fff;
+    font-size: 30px;
+    line-height: 80px;
+    padding: 0 35px;
+    margin: 20px 30px;
+    border-radius: 8px;
+  }
+}

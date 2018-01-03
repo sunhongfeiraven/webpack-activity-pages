@@ -23,7 +23,7 @@ entrys.forEach(entry => {
     entry: `./src/${entry}/main.js`,
     plugins: [
       new webpack.DefinePlugin({
-        _ENV_: JSON.stringify(process.env.BUILD_ENV)
+        env: JSON.stringify(process.env.BUILD_ENV)
       }),
       new HtmlWebpackPlugin({
         filename: `index.html`,
@@ -42,7 +42,7 @@ entrys.forEach(entry => {
 // 不需打包的文件
 additionalFiles.forEach(addEntry => {
   gulp.task(addEntry, () => {
-    return gulp.src(`src/${addEntry}/*`).pipe(gulp.dest(`dist/${addEntry}`))
+    return gulp.src(`src/${addEntry}/**`).pipe(gulp.dest(`dist/${addEntry}`))
   })
 })
 

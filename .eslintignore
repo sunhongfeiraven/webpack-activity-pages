@@ -3,3 +3,5 @@
 /dist/
 /*.js
 /src/**/*.html
+/src/lib/*
+/templates/**/*.html

@@ -7,3 +7,8 @@
 .vscode
 .idea
 .vscode/launch.json
+
+/src/fangfuxiu/**/**
+/src/headline/**/**
+/src/panshi/**/**
+/src/yuebing/**/**

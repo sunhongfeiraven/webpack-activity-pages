@@ -3,14 +3,16 @@
 const path = require('path')
 
 module.exports = {
-  fileName: 'vue',
+  fileName: 'fangfuxiu',
   // 额外没有main.js的文件打包
   additionalFiles: ['privacy', 'lib', 'assets'],
   // 不需要打包的项目 即不会出现在dist当中
   exceptFiles: ['projectB'],
   // 第三方包
   externals: {
-    axios: 'axios'
+    axios: 'axios',
+    wx: 'wx',
+    Mlink: 'Window.Mlink'
   },
   dev: {
     host: '0.0.0.0',

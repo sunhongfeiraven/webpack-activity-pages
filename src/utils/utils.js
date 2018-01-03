@@ -1,3 +1,48 @@
+import bridge from './bridge'
+
+/**
+ *  判断浏览器类型
+ */
+export const browser = {
+  versions: (function() {
+    const ua = navigator.userAgent
+    return {
+      isInJcy: !!ua.match(/jcy/),
+      mobile: !!ua.match(/AppleWebKit.*Mobile.*/),
+      ios: !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+      android: ua.indexOf('Android') > -1 || ua.indexOf('Linux') > -1,
+      iphone: ua.indexOf('iPhone') > -1,
+      wx: ua.indexOf('MicroMessenger') !== -1
+    }
+  })(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
+/* *
+* 是否在金诚逸环境
+* */
+export const isInJcy = () => {
+  if (browser.versions.isInJcy) {
+    bridge.call('base_inClient', {}, res => {
+      return res.data && 'clientFlag' in res.data && res.data.clientFlag === 'jcy'
+    })
+  } else {
+    return false
+  }
+}
+
+/***
+ * 解析地址栏 params
+ * @param name
+ * @returns {value}
+ */
+export const getUrlParam = name => {
+  var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)') // 构造一个含有目标参数的正则表达式对象
+  var r = window.location.search.substr(1).match(reg) // 匹配目标参数
+  if (r != null) return unescape(r[2])
+  return null // 返回参数值
+}
+
 /***
  * 事件代理方法
  * @param parentSelector
@@ -5,7 +50,7 @@
  * @param events
  * @param callback
  */
-export default function eventDelegate(parentSelector, targetSelector, events, callback) {
+export function eventDelegate(parentSelector, targetSelector, events, callback) {
   // 触发执行的函数
   function triFunction(e) {
     // 兼容性处理

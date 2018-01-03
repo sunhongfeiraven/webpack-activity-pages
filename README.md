@@ -77,6 +77,8 @@ yarn build             //生产环境打包
 
 - ~~script/CDN 方式引入公共资源 ?webpack copyPlugin~~
 - ~~提取公共组件至lib~~
+- ~~添加项目通用lib~~
+- ~~重构share等方法~~
+- 下载按钮用魔窗配置
 - 测试font打包
-- 添加项目通用lib
-- 重构share等方法
+- vue使用cdn打包
