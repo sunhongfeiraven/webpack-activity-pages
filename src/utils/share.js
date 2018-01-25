@@ -10,34 +10,35 @@ export default class Share {
     this.shareData = shareData
     this.init()
   }
-
   // 显示分享按钮 微信分享
   init() {
     const self = this
     const main = document.getElementById('main')
     const btnShare = document.getElementById('btnShare')
-    // const btnDownload = document.getElementById('btnDownload')
     const downloadWrap = document.getElementById('downloadWrap')
 
-    if (isInJcy()) {
-      if (this.showIcon) {
-        btnShare.style.display = 'block'
+    isInJcy(res => {
+      if (res) {
+        if (self.showIcon) {
+          btnShare.style.display = 'block'
+        }
         btnShare.addEventListener('click', function() {
           self.initJcyShare()
         })
-
         // 隐藏底部下载区域 padding
-        main.style.marginBottom = '0'
+        main.style.paddingBottom = '0'
+      } else {
+        if (self.showIcon) {
+          btnShare.style.display = 'none'
+        }
+        // 显示底部下载区域 padding
+        main.style.paddingBottom = '1.6rem'
+        // 下载按钮
+        downloadWrap.style.display = 'flex'
+        // 微信分享
+        self.initWxShare()
       }
-    } else {
-      btnShare.style.display = 'none'
-      // 显示底部下载区域 padding
-      main.style.marginBottom = '1.6rem'
-      // 下载按钮
-      downloadWrap.style.display = 'block'
-      // 微信分享
-      self.initWxShare()
-    }
+    })
   }
 
   // 下载由魔窗处理

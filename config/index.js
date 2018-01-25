@@ -3,16 +3,17 @@
 const path = require('path')
 
 module.exports = {
-  fileName: 'fangfuxiu',
+  fileName: 'nianhuojie',
   // 额外没有main.js的文件打包
-  additionalFiles: ['privacy', 'lib', 'assets'],
+  additionalFiles: ['privacy', 'lib', 'assets', 'calfive', 'calsix'],
   // 不需要打包的项目 即不会出现在dist当中
-  exceptFiles: ['projectB'],
+  exceptFiles: [],
   // 第三方包
   externals: {
     axios: 'axios',
     wx: 'wx',
-    Mlink: 'Window.Mlink'
+    Mlink: 'Window.Mlink',
+    Swiper: 'Swiper'
   },
   dev: {
     host: '0.0.0.0',

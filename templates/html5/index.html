@@ -14,6 +14,7 @@
   <meta name="x5-fullscreen" content="true" />
   <meta name="x5-page-mode" content="app" />
   <title>XXX</title>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css"> -->
   <script src='../lib/flexible.js'></script>
 </head>
 
@@ -22,31 +23,14 @@
   <div id="main" class="main">
 
   </div>
-
-  <footer class="download-wrap" id="downloadWrap">
-    <img class="download-logo" src="../assets/logo.png">
-    <div class="txt-cont">
-      <h3>金诚逸</h3>
-      <p>ONE WORLD ONE JC</p>
-    </div>
-    <a class="btn-load" id="btnDownload">下载 APP</a>
-  </footer>
+  <!--footer-->
+  #include('../utils/template/footer.html')
 
   <script src="https://cdn.bootcss.com/axios/0.17.1/axios.min.js"></script>
   <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
   <script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
-
-  <!-- TODO swipe处理 -->
-  <script>
-    // 百度统计
-    var _hmt = _hmt || [];
-    (function () {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?bafb1dd0b5a363f7eb5bd93cb4c8269f";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <!--百度统计-->
+  #include('../utils/template/baiduCount.html')
 </body>
 
 </html>

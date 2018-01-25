@@ -1,11 +1,13 @@
 footer {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   z-index: 999;
   width: 100%;
   bottom: 0;
   height: 120px;
   background: #000;
-  display: none;
   *zoom: 1;
 
   &::before,
@@ -19,24 +21,23 @@ footer {
     clear: both;
   }
 
-  .download-logo,
   .txt-cont {
-    float: left;
+    flex: 1;
   }
 
-  .txt-cont {
+  .txt-cont h3,
+  .txt-cont p {
     color: #fff;
+  }
 
-    h3 {
-      font-size: 32px;
-      margin-top: 20px;
-      letter-spacing: 8px;
-    }
+  .txt-cont h3 {
+    font-size: 32px;
+    letter-spacing: 8px;
+  }
 
-    p {
-      font-size: 20px;
-      margin-top: 8px;
-    }
+  .txt-cont p {
+    font-size: 20px;
+    margin-top: 8px;
   }
 
   .download-logo {
@@ -45,13 +46,13 @@ footer {
   }
 
   .btn-load {
-    float: right;
-    background: #fd5729;
+    flex: none;
+    background: #FD5729;
     color: #fff;
     font-size: 30px;
     line-height: 80px;
     padding: 0 35px;
-    margin: 20px 30px;
+    margin: 20px 30px 20px 0;
     border-radius: 8px;
   }
 }

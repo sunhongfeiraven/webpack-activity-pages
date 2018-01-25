@@ -4,8 +4,17 @@ import './css/style.less'
 // 引入依赖
 import bridge from '@/bridge'
 import Share from '@/share'
-import { isInJcy, eventDelegate } from '@/utils'
-import { basePrefix } from './js/config'
+import { isInJcy, eventDelegate, getBasePrefix, getSchemeUrl, initMlink} from '@/utils'
+// js中引入的图片不能打包进去，要先用 import 引入
+import './images/share.jpg'
+
+const basePrefix = getBasePrefix('XXXX')
+
+/*
+  // 需要请求后台时的接口
+  import { getBaseUrl } from '@/utils'
+  const baseUrl = getBaseUrl('XXXX')
+ */
 
 /*
 // 视频
@@ -23,42 +32,39 @@ plyr.setup(document.getElementById('myVideo'), {
 })
 */
 
+/*
+import Swiper from 'swiper'
+// Swiper
+new Swiper('.swiper-container', {
+  direction: 'horizontal',
+  loop: true,
+  autoplay: 2000,
+  // 如果需要分页器
+  pagination: '.swiper-pagination',
+})
+*/
+
+// 分享文案 & 图片
 new Share({
   shareData: {
     title: '分享标题',
     subTitle: '分享文案',
-    image: basePrefix + 'images/xxxx.jpg',
+    image: basePrefix + 'images/share.jpg',
     link: basePrefix + 'index.html'
   }
 })
 
-function getSchemeUrl(type, prdId) {
-  return 'jcgroup-jcy://jcy.jc/go?action=MarketProductDetail&prdId=' + prdId + '&url=http://www'
-}
-
-if (isInJcy()) {
-  /* 在相应的 DOM 节点上打开 app 页面 */
-  eventDelegate('.txt-detail', '.btn', 'onclick', function(el) {
-    bridge.call('base_schemeUrl', {
-      url: getSchemeUrl(el.dataset.type, el.dataset.id)
-    })
-  })
-} else {
-  const mlink = 'https://ahv8ke.mlinks.cc/Adbw'
-  let mlinkOption = []
-  document.querySelectorAll('.main .mlink').forEach(function(el) {
-    if (el.dataset.type === 'product' || el.dataset.type === 'coupon' || el.dataset.type === 'jCoffee') {
-      mlinkOption.push({
-        mlink,
-        button: el,
-        params: {
-          schemeurl: getSchemeUrl(el.dataset.type, el.dataset.id)
-        }
+// 判断是否在金诚逸中
+isInJcy(res => {
+  if (res) {
+    /* 在相应的 DOM 节点上打开 app 页面 */
+    eventDelegate('.main', '.mlink', 'onclick', function(el) {
+      bridge.call('base_schemeUrl', {
+        url: getSchemeUrl(el.dataset.type, el.dataset.id)
       })
-    }
-  })
-
-  console.log(mlinkOption)
-  /*eslint-disable */
-  new Mlink(mlinkOption)
-}
+    })
+  } else {
+    const schemeurl = `jcgroup-jcy://jcy.jc/go?action=JCInnerWebView&url=${basePrefix}`
+    initMlink(schemeurl)
+  }
+})

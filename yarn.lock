@@ -126,6 +126,12 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.npmjs.org/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+ansi-cyan@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/ansi-cyan/-/ansi-cyan-0.1.1.tgz#538ae528af8982f28ae30d86f2f17456d2609873"
+  dependencies:
+    ansi-wrap "0.1.0"
+
 ansi-escapes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/ansi-escapes/-/ansi-escapes-3.0.0.tgz#ec3e8b4e9f8064fc02c3ac9b65f1c275bda8ef92"
@@ -139,6 +145,12 @@ ansi-gray@^0.1.1:
 ansi-html@0.0.7:
   version "0.0.7"
   resolved "https://registry.npmjs.org/ansi-html/-/ansi-html-0.0.7.tgz#813584021962a9e9e6fd039f940d12f56ca7859e"
+
+ansi-red@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/ansi-red/-/ansi-red-0.1.1.tgz#8c638f9d1080800a353c9c28c8a81ca4705d946c"
+  dependencies:
+    ansi-wrap "0.1.0"
 
 ansi-regex@^0.2.0, ansi-regex@^0.2.1:
   version "0.2.1"
@@ -198,6 +210,13 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
+arr-diff@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/arr-diff/-/arr-diff-1.1.0.tgz#687c32758163588fef7de7b36fabe495eb1a399a"
+  dependencies:
+    arr-flatten "^1.0.1"
+    array-slice "^0.2.3"
+
 arr-diff@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/arr-diff/-/arr-diff-2.0.0.tgz#8f3b827f955a8bd669697e4a4256ac3ceae356cf"
@@ -211,6 +230,10 @@ arr-diff@^4.0.0:
 arr-flatten@^1.0.1, arr-flatten@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/arr-flatten/-/arr-flatten-1.1.0.tgz#36048bbff4e7b47e136644316c99669ea5ae91f1"
+
+arr-union@^2.0.1:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/arr-union/-/arr-union-2.1.0.tgz#20f9eab5ec70f5c7d215b1077b1c39161d292c7d"
 
 arr-union@^3.1.0:
   version "3.1.0"
@@ -246,6 +269,10 @@ array-includes@^3.0.3:
 array-iterate@^1.0.0:
   version "1.1.1"
   resolved "https://registry.npmjs.org/array-iterate/-/array-iterate-1.1.1.tgz#865bf7f8af39d6b0982c60902914ac76bc0108f6"
+
+array-slice@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.npmjs.org/array-slice/-/array-slice-0.2.3.tgz#dd3cfb80ed7973a75117cdac69b0b99ec86186f5"
 
 array-slice@^1.0.0:
   version "1.1.0"
@@ -1038,6 +1065,10 @@ browserslist@^2.1.2, browserslist@^2.9.1:
   dependencies:
     caniuse-lite "^1.0.30000770"
     electron-to-chromium "^1.3.27"
+
+buffer-crc32@~0.2.3:
+  version "0.2.13"
+  resolved "https://registry.npmjs.org/buffer-crc32/-/buffer-crc32-0.2.13.tgz#0d333e3f00eac50aa1454abd30ef8c2a5d9a7242"
 
 buffer-indexof@^1.0.0:
   version "1.1.1"
@@ -1905,10 +1936,6 @@ dom-serializer@0:
     domelementtype "~1.1.1"
     entities "~1.1.1"
 
-dom7@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/dom7/-/dom7-2.0.1.tgz#a8a2c802cf17c20b051d9414143061472201a233"
-
 domain-browser@^1.1.1:
   version "1.1.7"
   resolved "https://registry.npmjs.org/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
@@ -2079,10 +2106,6 @@ es6-map@^0.1.3:
     es6-set "~0.1.5"
     es6-symbol "~3.1.1"
     event-emitter "~0.3.5"
-
-es6-promise@^4.1.0:
-  version "4.2.2"
-  resolved "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.2.tgz#f722d7769af88bd33bc13ec6605e1f92966b82d9"
 
 es6-set@~0.1.5:
   version "0.1.5"
@@ -2403,6 +2426,12 @@ express@^4.16.2:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
+extend-shallow@^1.1.2:
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/extend-shallow/-/extend-shallow-1.1.4.tgz#19d6bf94dfc09d76ba711f39b872d21ff4dd9071"
+  dependencies:
+    kind-of "^1.1.0"
+
 extend-shallow@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/extend-shallow/-/extend-shallow-2.0.1.tgz#51af7d614ad9a9f610ea1bafbb989d6b1c56890f"
@@ -2626,13 +2655,6 @@ flat-cache@^1.2.1:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
-
-flv.js@^1.3.4:
-  version "1.3.4"
-  resolved "https://registry.npmjs.org/flv.js/-/flv.js-1.3.4.tgz#c6b306062363d45f022e607a2aba5a6d1658e61b"
-  dependencies:
-    es6-promise "^4.1.0"
-    webworkify "^1.4.0"
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
@@ -2951,6 +2973,12 @@ gulp-copy@^1.0.1:
     gulp-util "^3.0.8"
     through2 "^2.0.3"
 
+gulp-sequence@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/gulp-sequence/-/gulp-sequence-1.0.0.tgz#862f93e6503e67c350a42948fa666953cf88ba67"
+  dependencies:
+    thunks "^4.9.0"
+
 gulp-util@^2.2.14:
   version "2.2.20"
   resolved "https://registry.npmjs.org/gulp-util/-/gulp-util-2.2.20.tgz#d7146e5728910bd8f047a6b0b1e549bc22dbd64c"
@@ -2986,6 +3014,16 @@ gulp-util@^3.0.0, gulp-util@^3.0.7, gulp-util@^3.0.8:
     replace-ext "0.0.1"
     through2 "^2.0.0"
     vinyl "^0.5.0"
+
+gulp-zip@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/gulp-zip/-/gulp-zip-4.1.0.tgz#dab178bd99afa190923f1eb78abaf0db47817704"
+  dependencies:
+    get-stream "^3.0.0"
+    plugin-error "^0.1.2"
+    through2 "^2.0.1"
+    vinyl "^2.1.0"
+    yazl "^2.1.0"
 
 gulp@^3.9.1:
   version "3.9.1"
@@ -3793,6 +3831,10 @@ jsprim@^1.2.2:
 killable@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/killable/-/killable-1.0.0.tgz#da8b84bd47de5395878f95d64d02f2449fe05e6b"
+
+kind-of@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/kind-of/-/kind-of-1.1.0.tgz#140a3d2d41a36d2efcfa9377b62c24f8495a5c44"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.1.0, kind-of@^3.2.0:
   version "3.2.2"
@@ -4960,6 +5002,16 @@ pkg-dir@^2.0.0:
   resolved "https://registry.npmjs.org/pkg-dir/-/pkg-dir-2.0.0.tgz#f6d5d1109e19d63edf428e0bd57e12777615334b"
   dependencies:
     find-up "^2.1.0"
+
+plugin-error@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/plugin-error/-/plugin-error-0.1.2.tgz#3b9bb3335ccf00f425e07437e19276967da47ace"
+  dependencies:
+    ansi-cyan "^0.1.1"
+    ansi-red "^0.1.1"
+    arr-diff "^1.0.1"
+    arr-union "^2.0.1"
+    extend-shallow "^1.1.2"
 
 pluralize@^7.0.0:
   version "7.0.0"
@@ -6439,12 +6491,6 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
-swiper@^4.0.7:
-  version "4.0.7"
-  resolved "https://registry.npmjs.org/swiper/-/swiper-4.0.7.tgz#89175c2a23d86622eda8344740c24a3701a6b270"
-  dependencies:
-    dom7 "^2.0.1"
-
 table@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npmjs.org/table/-/table-4.0.2.tgz#a33447375391e766ad34d3486e6e2aedc84d2e36"
@@ -6516,6 +6562,10 @@ through2@^2.0.0, through2@^2.0.1, through2@^2.0.3:
 through@^2.3.6, through@^2.3.8:
   version "2.3.8"
   resolved "https://registry.npmjs.org/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
+
+thunks@^4.9.0:
+  version "4.9.0"
+  resolved "https://registry.npmjs.org/thunks/-/thunks-4.9.0.tgz#46c00db9968583b3a421e0c9285eac8b9fddb31a"
 
 thunky@^0.1.0:
   version "0.1.0"
@@ -7111,10 +7161,6 @@ websocket-extensions@>=0.1.1:
   version "0.1.3"
   resolved "https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.3.tgz#5d2ff22977003ec687a4b87073dfbbac146ccf29"
 
-webworkify@^1.4.0:
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/webworkify/-/webworkify-1.5.0.tgz#734ad87a774de6ebdd546e1d3e027da5b8f4a42c"
-
 whet.extend@~0.9.9:
   version "0.9.9"
   resolved "https://registry.npmjs.org/whet.extend/-/whet.extend-0.9.9.tgz#f877d5bf648c97e5aa542fadc16d6a259b9c11a1"
@@ -7258,3 +7304,9 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+yazl@^2.1.0:
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/yazl/-/yazl-2.4.3.tgz#ec26e5cc87d5601b9df8432dbdd3cd2e5173a071"
+  dependencies:
+    buffer-crc32 "~0.2.3"

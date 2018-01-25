@@ -1,3 +1,4 @@
+/* eslint-disable */
 import bridge from './bridge'
 
 /**
@@ -18,16 +19,84 @@ export const browser = {
   language: (navigator.browserLanguage || navigator.language).toLowerCase()
 }
 
-/* *
-* 是否在金诚逸环境
-* */
-export const isInJcy = () => {
+/**
+ * 是否在金诚逸环境
+ * */
+
+export const isInJcy = function(cb) {
   if (browser.versions.isInJcy) {
     bridge.call('base_inClient', {}, res => {
-      return res.data && 'clientFlag' in res.data && res.data.clientFlag === 'jcy'
+      if (res.data && 'clientFlag' in res.data && res.data.clientFlag === 'jcy') {
+        cb && cb(true)
+      } else {
+        cb && cb(false)
+      }
     })
   } else {
-    return false
+    cb && cb(false)
+  }
+}
+
+/**
+ * 获取金诚逸用户id
+ * */
+export const getJcyUserId = function(cb) {
+  bridge.call('base_userData', {}, userData => {
+    if (userData && userData.data && userData.data.userId !== '') {
+      cb && cb(userData.data.userId)
+    } else {
+      cb && cb(false)
+    }
+  })
+}
+
+/**
+ * 构造分享内容中图片和链接的地址
+ * @param folderName
+ * @returns {*}
+ * */
+export const getBasePrefix = folderName => {
+  let url = `http://test.jcywap.easybao.com/activities/${folderName}/` // 测试
+  if (env === 'PRE') {
+    url = `http://pre.jcywap.easybao.com/activities/${folderName}/` // 预发
+  } else if (env === 'PROD') {
+    url = `https://jcywap.easybao.com/activities/${folderName}/` // 生产
+  }
+  return url
+}
+
+/**
+ * 需要请求后台时的接口
+ * @param params
+ * @returns {*}
+ */
+export const getBaseUrl = params => {
+  let url = `http://test.jcyapi.easybao.com/${params}` // 测试
+  if (env === 'PRE') {
+    url = `http://pre.jcyapi.easybao.com/${params}` // 预发
+  } else if (env === 'PROD') {
+    url = `https://jcyapi.easybao.com/${params}` // 生产
+  }
+  return url
+}
+
+/***
+ * 链接跳转地址
+ * @param type
+ * @param id (商品id || 店铺id)
+ * @returns {*}
+ */
+export function getSchemeUrl(type, id) {
+  if (type === 'product') {
+    return `jcgroup-jcy://jcy.jc/go?action=MarketProductDetail&prdId=${id}&url=http://www`
+  } else if (type === 'coupon') {
+    return `jcgroup-jcy://jcy.jc/go?action=JCCouponDetail&prdId=${id}`
+  } else if (type === 'jCoffee') {
+    return 'jcgroup-jcy://jcy.jc/go?action=JCTakeOutShop&shopId=1'
+  } else if (type === 'marketShop') {
+    return `jcgroup-jcy://jcy.jc/go?action=JCY_Market_Shop&shopId=${id}`
+  } else if (type === 'couponShop') {
+    return `jcgroup-jcy://jcy.jc/go?action=JCCouponShop&shopId=${id}`
   }
 }
 
@@ -99,4 +168,22 @@ export function eventDelegate(parentSelector, targetSelector, events, callback) 
       $p[evt] = triFunction
     })
   })
+}
+
+/**
+ * 添加魔窗
+ * @param {} schemeurl
+ */
+export function initMlink(schemeurl) {
+  const mlink = 'https://ahv8ke.mlinks.cc/Adbw'
+  let mlinkOption = [{ mlink, button: document.getElementById('btnDownload'), params: { schemeurl } }]
+  document.querySelectorAll('.main .mlink').forEach(function(el) {
+    mlinkOption.push({
+      mlink,
+      button: el,
+      params: { schemeurl }
+    })
+  })
+  /* eslint-disable no-undef */
+  new Mlink(mlinkOption)
 }

@@ -8,6 +8,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const chalk = require('chalk')
 const merge = require('webpack-merge')
 const clean = require('gulp-clean')
+const zip = require('gulp-zip')
+const gulpSequence = require('gulp-sequence')
 const config = require('./config')
 const utils = require('./build/utils')
 
@@ -51,4 +53,12 @@ gulp.task('clean', () => {
   return gulp.src('dist/', { force: true }).pipe(clean())
 })
 
-gulp.task('default', [...additionalFiles, ...entrys], () => {})
+// 打包
+gulp.task('zip', () => {
+  return gulp
+    .src('dist/**')
+    .pipe(zip('dist.zip'))
+    .pipe(gulp.dest('./'))
+})
+
+gulp.task('default', gulpSequence([...additionalFiles, ...entrys], 'zip'))

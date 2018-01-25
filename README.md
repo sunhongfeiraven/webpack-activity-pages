@@ -26,7 +26,7 @@ config.index 中由 externals 配置
 
 使用方法:
 
-1.在config.index中配置externals
+1.在 config.index 中配置 externals
 
 ```js
   externals: {
@@ -35,7 +35,7 @@ config.index 中由 externals 配置
   },
 ```
 
-2.在项目index.html中添加
+2.在项目 index.html 中添加
 
 ```html
 <script src="../lib/axios.min.js"></script>
@@ -45,7 +45,7 @@ config.index 中由 externals 配置
 <script src="cdn address"></script>
 ```
 
-3.在main.js中import( 为了防止全局变量污染 )
+3.在 main.js 中 import( 为了防止全局变量污染 )
 
 ```js
 import axios from 'axios'
@@ -53,7 +53,7 @@ import axios from 'axios'
 
 当前支持列表:
 
-- axios
+* axios
 
 ## Alias
 
@@ -61,7 +61,7 @@ import axios from 'axios'
 
 ## 开发
 
-修改config里的fileName
+修改 config 里的 fileName
 
 ```shell
 yarn dev || yarn start    //开发单个页面
@@ -75,10 +75,11 @@ yarn build             //生产环境打包
 
 ## TODO
 
-- ~~script/CDN 方式引入公共资源 ?webpack copyPlugin~~
-- ~~提取公共组件至lib~~
-- ~~添加项目通用lib~~
-- ~~重构share等方法~~
-- 下载按钮用魔窗配置
-- 测试font打包
-- vue使用cdn打包
+* ~~script/CDN 方式引入公共资源 ?webpack copyPlugin~~
+* ~~提取公共组件至 lib~~
+* ~~添加项目通用 lib~~
+* ~~重构 share 等方法~~
+* vue templates
+* 下载按钮用魔窗配置
+* 测试 font 打包
+* vue 使用 cdn 打包
