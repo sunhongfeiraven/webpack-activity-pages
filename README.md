@@ -1,85 +1,108 @@
 # webpack-mutiple-output
 
+基于 webpack 对活动页的架构支持支持 webpack-devserver
+使用 gulp+webpack 进行打包压缩支持 vue，暂不支持 react
+未使用 CommonsChunk 进行合并，活动页为多入口，若使用CommonsChunkPlugin会有生产风险
+
+此项目主要契合多入口，多出口的简单项目（移动端）内置了 px2rem，libFlex 等快速对移动端 h5 进行开发
+
 ## 目录结构
 
 ```js
 src
-├── lib                      # 全局通用的某些第三方库 可用<script>引入 详情见下文
-├── utils                    # 工具库 在项目main.js中用import引入
-├── ...                      # 其他项目文件
+├── lib                      # 本地的第三方库可通过<script />方式加载的
+├── utils                    # 可import的utils库（如browser判断ua,金诚逸bridge，全局通用样式等等）
+├── assets                   # 全局静态资源（如金诚逸logo，分享图标，404页面资源等）
+├── ...                      # 项目主文件
 ```
 
 ## 项目结构
 
 ```js
 .
-├── css                      # css 文件
-├── images                   # 图像目录
-├── js                       # 其他js文件可从这里import
+├── style                    # 样式 文件（目前支持css less, 其他类型可通过添加loader来实现）
+├── images                   # 图片资源目录
+├── js                       # 项目其他js (如封装的一些类，非通用的utils等等)
 ├── main.js                  # js 主入口
-└── index.html               # 开发用 html 文件，打包时会生成 index.html 文件
+└── index.html               # index 入口文件
 ```
 
-## LIB & CDN
+## 开始
 
-config.index 中由 externals 配置
-
-使用方法:
-
-1.在 config.index 中配置 externals
-
-```js
-  externals: {
-    // ...other externals
-    axios: 'axios',
-  },
-```
-
-2.在项目 index.html 中添加
-
-```html
-<script src="../lib/axios.min.js"></script>
-
-// or
-
-<script src="cdn address"></script>
-```
-
-3.在 main.js 中 import( 为了防止全局变量污染 )
-
-```js
-import axios from 'axios'
-```
-
-当前支持列表:
-
-* axios
-
-## Alias
-
-@: src/utils
-
-## 开发
-
-修改 config 里的 fileName
+修改 config/index.js 中的的 fileName 为当前开发文件夹名
 
 ```shell
-yarn dev || yarn start    //开发单个页面
+yarn install
+yarn dev || yarn start    // 开发单个页面
 ```
 
 ## 构建
 
 ```shell
-yarn build             //生产环境打包
+yarn build             // 生产
+yarn build:test        // 测试
+yarn build:pre         // 预发
 ```
+
+## 配置项
+```js
+// config/index.js
+
+module.exports = {
+  fileName: 'xxx', // 当前开发dev-server启动的项目
+  additionalFiles: ['privacy', 'lib', 'assets', 'calfive', 'calsix'], // 未配置main.js但需要打包的项目（如不需要js的展示业，静态资源等）
+  exceptFiles: [], // 不参与到打包的项目（如限时活动下架时）
+  // ...
+}
+
+```
+
+
+## CDN
+
+可使用 CDN 加载线上资源如: Swiper.js
+
+## Alias
+
+@: src/utils
+
+## utils
+
+### bridge.js 
+
+与金诚逸交互的bridge
+
+### share.js
+
+封装了金诚逸分享与微信二次分享
+
+```js
+import Share from 'path/to/share'
+
+new Share({
+  showIcon: true, //是否显示分享图标
+  shareData: {
+    title: '分享标题',
+    subTitle: '分享文案',
+    image: 'share/img/path',
+    link: 'share/addreass/path'
+  }
+})
+```
+
+### utils.js
+
+封装了常用工具如下：
+- browser 判断ua
+- isInJcy 判断是否在金诚逸环境
+- getJcyUserId 获取金诚逸用户id
+- getBasePrefix 构造分享内容中图片和链接的地址
+- getBaseUrl 服务端请求接口域名配置
+- getUrlParam 解析地址栏参数
+- eventDelegate 事件代理方法
 
 ## TODO
 
-* ~~script/CDN 方式引入公共资源 ?webpack copyPlugin~~
-* ~~提取公共组件至 lib~~
-* ~~添加项目通用 lib~~
-* ~~重构 share 等方法~~
-* vue templates
-* 下载按钮用魔窗配置
-* 测试 font 打包
-* vue 使用 cdn 打包
+- devServer及测试环境支持sourceMap 方便调试
+- 支持react
+- 未修改的不打包，加快速度

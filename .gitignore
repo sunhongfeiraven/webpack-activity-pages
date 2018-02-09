@@ -1,5 +1,6 @@
 /node_modules
 /dist
+/dist.zip
 /.sass-cache
 ./npm-debug.log
 .DS_Store
@@ -8,7 +9,3 @@
 .idea
 .vscode/launch.json
 
-/src/fangfuxiu/**/**
-/src/headline/**/**
-/src/panshi/**/**
-/src/yuebing/**/**

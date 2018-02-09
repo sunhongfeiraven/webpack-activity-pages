@@ -1,14 +1,14 @@
 // 先引入样式
-import './css/style.less'
+import './style/style.less'
 
 // 引入依赖
 import bridge from '@/bridge'
 import Share from '@/share'
-import { isInJcy, eventDelegate, getBasePrefix, getSchemeUrl, initMlink} from '@/utils'
+import { isInJcy, eventDelegate, getBasePrefix, getSchemeUrl, initMlink } from '@/utils'
 // js中引入的图片不能打包进去，要先用 import 引入
-import './images/share.jpg'
+// import './images/share.jpg'
 
-const basePrefix = getBasePrefix('XXXX')
+const basePrefix = getBasePrefix('jsTemplate') // 文件夹名
 
 /*
   // 需要请求后台时的接口
@@ -64,6 +64,7 @@ isInJcy(res => {
       })
     })
   } else {
+    // 魔窗
     const schemeurl = `jcgroup-jcy://jcy.jc/go?action=JCInnerWebView&url=${basePrefix}`
     initMlink(schemeurl)
   }
