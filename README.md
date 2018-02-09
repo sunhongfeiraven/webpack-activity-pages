@@ -1,7 +1,9 @@
 # webpack-mutiple-output
 
 基于 webpack 对活动页的架构支持支持 webpack-devserver
+
 使用 gulp+webpack 进行打包压缩支持 vue，暂不支持 react
+
 未使用 CommonsChunk 进行合并，活动页为多入口，若使用 CommonsChunkPlugin 会有生产风险
 
 此项目主要契合多入口，多出口的简单项目（移动端）内置了 px2rem，libFlex 等快速对移动端 h5 进行开发
