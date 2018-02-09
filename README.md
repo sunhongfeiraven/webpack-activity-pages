@@ -2,7 +2,7 @@
 
 基于 webpack 对活动页的架构支持支持 webpack-devserver
 使用 gulp+webpack 进行打包压缩支持 vue，暂不支持 react
-未使用 CommonsChunk 进行合并，活动页为多入口，若使用CommonsChunkPlugin会有生产风险
+未使用 CommonsChunk 进行合并，活动页为多入口，若使用 CommonsChunkPlugin 会有生产风险
 
 此项目主要契合多入口，多出口的简单项目（移动端）内置了 px2rem，libFlex 等快速对移动端 h5 进行开发
 
@@ -32,7 +32,7 @@ src
 修改 config/index.js 中的的 fileName 为当前开发文件夹名
 
 ```shell
-yarn install
+yarn install
 yarn dev || yarn start    // 开发单个页面
 ```
 
@@ -45,18 +45,17 @@ yarn build:pre         // 预发
 ```
 
 ## 配置项
+
 ```js
 // config/index.js
 
 module.exports = {
   fileName: 'xxx', // 当前开发dev-server启动的项目
   additionalFiles: ['privacy', 'lib', 'assets', 'calfive', 'calsix'], // 未配置main.js但需要打包的项目（如不需要js的展示业，静态资源等）
-  exceptFiles: [], // 不参与到打包的项目（如限时活动下架时）
+  exceptFiles: [] // 不参与到打包的项目（如限时活动下架时）
   // ...
 }
-
 ```
-
 
 ## CDN
 
@@ -68,9 +67,9 @@ module.exports = {
 
 ## utils
 
-### bridge.js 
+### bridge.js
 
-与金诚逸交互的bridge
+与金诚逸交互的 bridge
 
 ### share.js
 
@@ -93,16 +92,17 @@ new Share({
 ### utils.js
 
 封装了常用工具如下：
-- browser 判断ua
-- isInJcy 判断是否在金诚逸环境
-- getJcyUserId 获取金诚逸用户id
-- getBasePrefix 构造分享内容中图片和链接的地址
-- getBaseUrl 服务端请求接口域名配置
-- getUrlParam 解析地址栏参数
-- eventDelegate 事件代理方法
+
+* browser 判断 ua
+* isInJcy 判断是否在金诚逸环境
+* getJcyUserId 获取金诚逸用户 id
+* getBasePrefix 构造分享内容中图片和链接的地址
+* getBaseUrl 服务端请求接口域名配置
+* getUrlParam 解析地址栏参数
+* eventDelegate 事件代理方法
 
 ## TODO
 
-- devServer及测试环境支持sourceMap 方便调试
-- 支持react
-- 未修改的不打包，加快速度
+* devServer 及测试环境支持 sourceMap 方便调试
+* 支持 react
+* 未修改的不打包，加快速度
